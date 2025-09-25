@@ -13,6 +13,7 @@ return {
 				ensure_installed = {
 					"lua_ls",
 					"gopls",
+					"ts_ls",
 				},
 			})
 		end,
@@ -66,6 +67,18 @@ return {
 					vim.lsp.start({
 						name = "gopls",
 						cmd = { "gopls" },
+						capabilities = capabilities,
+						on_attach = on_attach,
+					})
+				end,
+			})
+
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "typescript",
+				callback = function()
+					vim.lsp.start({
+						name = "ts_ls",
+						cmd = { "typescript-language-server" },
 						capabilities = capabilities,
 						on_attach = on_attach,
 					})
